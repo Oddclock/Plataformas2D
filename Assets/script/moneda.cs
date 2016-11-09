@@ -10,8 +10,9 @@ public class moneda : MonoBehaviour {
 		mipito.AddForce (new Vector2 (Random.Range(-100, 100),100));
 	}
 
-	void OnTriggerEnter2D(Collider2D col){
+	void OnTriggerEnter2D(Collider2D objeto){
 		Debug.Log ("Alguien me ha tocado!");
+		if (objeto.tag == "Player")
 		Destroy (gameObject);
 	}
 }

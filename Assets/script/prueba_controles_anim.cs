@@ -8,12 +8,16 @@ public class prueba_controles_anim : MonoBehaviour {
 	public bool colision_suelo = false;
 	private Animator anim;
 	private Rigidbody2D rb;
+	private GameControlScript gcs;
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
-	}
+		gcs = GameObject.Find ("GameControl").GetComponent<GameControlScript>();
 
+	}
+		
 	// Update is called once per frame
 	void Update () {
 
@@ -50,18 +54,25 @@ public class prueba_controles_anim : MonoBehaviour {
 
 		} 
 	}
-	void OnTriggerEnter2D(Collider2D objeto){
+	void OnTriggerEnter2D (Collider2D objeto){
 		if (objeto.tag == "Suelo") {
 			colision_suelo = true;
 			Debug.Log ("Toco suelo");
 			anim.SetBool ("jump", false);
 		} 
 	}
-	void OnTriggerExit2D(Collider2D objeto){
+	void OnTriggerExit2D (Collider2D objeto){
 		if (objeto.tag == "Suelo") {
 			colision_suelo = false;
 			Debug.Log ("No toco suelo");
 
 		} 
+	}
+
+	void OnCollisionEnter2D (Collision2D col){
+		if (col.gameObject.tag == "Muerte"){
+			gcs.respawn ();
+	}
+
 	}
 }
